@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.CatalogMapperCustom">
+	<select id="findCount" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM catalog
+		WHERE status=1
+	</select>
+	
+	<select id="findCatalogTreeList" resultType="com.cdfive.core.vo.ztree.ZtreeNodeVo">
+		SELECT id,pId,name,description
+		FROM catalog
+		WHERE status
+		ORDER BY sort
+	</select>
+	
+	<select id="findByPIdAndName" resultType="com.cdfive.mp3.po.Catalog">
+		SELECT id, pId, name, description, clickCount, sort, createUserId, updateUserId, createTime, 
+    	updateTime, status
+    	FROM catalog
+    	WHERE 
+    	<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND name=#{name,jdbcType=VARCHAR}
+    	AND status=1
+	</select>
+	
+	<select id="findCountByPId" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM catalog
+		WHERE pId=#{pId,jdbcType=VARCHAR}
+		AND status=1
+	</select>
+	
+	<select id="findMaxSortByPId" resultType="java.lang.Integer">
+		SELECT MAX(sort)
+		FROM catalog
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND status=1
+	</select>
+	
+	<update id="addAfterSort">
+		UPDATE catalog
+		SET sort=sort+1
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND sort>#{sort,jdbcType=INTEGER}
+		AND status=1
+	</update>
+	
+	<update id="minusAfterSort">
+		UPDATE catalog
+		SET sort=sort-1
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND sort>#{sort,jdbcType=INTEGER}
+		AND status=1
+	</update>
+	
+	<delete id="truncate">
+		TRUNCATE TABLE catalog
+	</delete>
+	
+</mapper>

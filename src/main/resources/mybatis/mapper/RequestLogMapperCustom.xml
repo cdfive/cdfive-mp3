@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.RequestLogMapperCustom">
+	<select id="findDateStat" resultType="com.cdfive.core.vo.common.NameCountVo">
+		SELECT DATE_FORMAT(createTime, '%Y-%m-%d') AS name,COUNT(1) AS count 
+		FROM request_log 
+		WHERE uri LIKE '/v1/%'
+		GROUP BY DATE_FORMAT(createTime, '%Y-%m-%d')
+		ORDER BY DATE_FORMAT(createTime, '%Y-%m-%d')
+	</select>
+	
+	<select id="findDateIpStat" resultType="com.cdfive.core.vo.common.NameCountVo">
+		SELECT ip AS name,COUNT(1) AS count 
+		FROM request_log 
+		WHERE uri LIKE '/v1/%' AND DATE_FORMAT(createTime, '%Y-%m-%d')=#{date,jdbcType=VARCHAR} 
+		GROUP BY ip
+		ORDER BY COUNT(1) DESC
+	</select>
+	
+	<select id="findDateIpUriStat" resultType="com.cdfive.core.vo.common.NameCountVo">
+		SELECT uri AS name,COUNT(1) AS count 
+		FROM request_log  
+		WHERE uri LIKE '/v1/%' AND DATE_FORMAT(createTime, '%Y-%m-%d')=#{date,jdbcType=VARCHAR}
+		AND ip=#{ip,jdbcType=VARCHAR}
+		GROUP BY uri 
+		ORDER BY COUNT(1) DESC
+	</select>
+</mapper>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.RequestLogMapper">
+  <resultMap id="BaseResultMap" type="com.cdfive.mp3.po.RequestLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sessionId" jdbcType="VARCHAR" property="sessionId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="protocal" jdbcType="VARCHAR" property="protocal" />
+    <result column="scheme" jdbcType="VARCHAR" property="scheme" />
+    <result column="serverName" jdbcType="VARCHAR" property="serverName" />
+    <result column="serverPort" jdbcType="INTEGER" property="serverPort" />
+    <result column="contentType" jdbcType="VARCHAR" property="contentType" />
+    <result column="contentLength" jdbcType="VARCHAR" property="contentLength" />
+    <result column="header" jdbcType="VARCHAR" property="header" />
+    <result column="cookie" jdbcType="VARCHAR" property="cookie" />
+    <result column="queryString" jdbcType="VARCHAR" property="queryString" />
+    <result column="parameter" jdbcType="VARCHAR" property="parameter" />
+    <result column="responseStatus" jdbcType="INTEGER" property="responseStatus" />
+    <result column="responseContentType" jdbcType="VARCHAR" property="responseContentType" />
+    <result column="exception" jdbcType="VARCHAR" property="exception" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sessionId, ip, uri, url, protocal, scheme, serverName, serverPort, contentType, 
+    contentLength, header, cookie, queryString, parameter, responseStatus, responseContentType, 
+    exception, startTime, endTime, createTime, updateTime, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from request_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from request_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cdfive.mp3.po.RequestLog">
+    insert into request_log (id, sessionId, ip, 
+      uri, url, protocal, 
+      scheme, serverName, serverPort, 
+      contentType, contentLength, header, 
+      cookie, queryString, parameter, 
+      responseStatus, responseContentType, exception, 
+      startTime, endTime, createTime, 
+      updateTime, status)
+    values (#{id,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{uri,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{protocal,jdbcType=VARCHAR}, 
+      #{scheme,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, #{serverPort,jdbcType=INTEGER}, 
+      #{contentType,jdbcType=VARCHAR}, #{contentLength,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, 
+      #{cookie,jdbcType=VARCHAR}, #{queryString,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, 
+      #{responseStatus,jdbcType=INTEGER}, #{responseContentType,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdfive.mp3.po.RequestLog">
+    insert into request_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sessionId != null">
+        sessionId,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="uri != null">
+        uri,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="protocal != null">
+        protocal,
+      </if>
+      <if test="scheme != null">
+        scheme,
+      </if>
+      <if test="serverName != null">
+        serverName,
+      </if>
+      <if test="serverPort != null">
+        serverPort,
+      </if>
+      <if test="contentType != null">
+        contentType,
+      </if>
+      <if test="contentLength != null">
+        contentLength,
+      </if>
+      <if test="header != null">
+        header,
+      </if>
+      <if test="cookie != null">
+        cookie,
+      </if>
+      <if test="queryString != null">
+        queryString,
+      </if>
+      <if test="parameter != null">
+        parameter,
+      </if>
+      <if test="responseStatus != null">
+        responseStatus,
+      </if>
+      <if test="responseContentType != null">
+        responseContentType,
+      </if>
+      <if test="exception != null">
+        exception,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+      <if test="endTime != null">
+        endTime,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="protocal != null">
+        #{protocal,jdbcType=VARCHAR},
+      </if>
+      <if test="scheme != null">
+        #{scheme,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverPort != null">
+        #{serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentLength != null">
+        #{contentLength,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="cookie != null">
+        #{cookie,jdbcType=VARCHAR},
+      </if>
+      <if test="queryString != null">
+        #{queryString,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="responseStatus != null">
+        #{responseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="responseContentType != null">
+        #{responseContentType,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdfive.mp3.po.RequestLog">
+    update request_log
+    <set>
+      <if test="sessionId != null">
+        sessionId = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="protocal != null">
+        protocal = #{protocal,jdbcType=VARCHAR},
+      </if>
+      <if test="scheme != null">
+        scheme = #{scheme,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        serverName = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverPort != null">
+        serverPort = #{serverPort,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        contentType = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentLength != null">
+        contentLength = #{contentLength,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="cookie != null">
+        cookie = #{cookie,jdbcType=VARCHAR},
+      </if>
+      <if test="queryString != null">
+        queryString = #{queryString,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        parameter = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="responseStatus != null">
+        responseStatus = #{responseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="responseContentType != null">
+        responseContentType = #{responseContentType,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        exception = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        startTime = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdfive.mp3.po.RequestLog">
+    update request_log
+    set sessionId = #{sessionId,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      protocal = #{protocal,jdbcType=VARCHAR},
+      scheme = #{scheme,jdbcType=VARCHAR},
+      serverName = #{serverName,jdbcType=VARCHAR},
+      serverPort = #{serverPort,jdbcType=INTEGER},
+      contentType = #{contentType,jdbcType=VARCHAR},
+      contentLength = #{contentLength,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
+      cookie = #{cookie,jdbcType=VARCHAR},
+      queryString = #{queryString,jdbcType=VARCHAR},
+      parameter = #{parameter,jdbcType=VARCHAR},
+      responseStatus = #{responseStatus,jdbcType=INTEGER},
+      responseContentType = #{responseContentType,jdbcType=VARCHAR},
+      exception = #{exception,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=TIMESTAMP},
+      endTime = #{endTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

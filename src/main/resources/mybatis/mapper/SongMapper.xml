@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.SongMapper">
+  <resultMap id="BaseResultMap" type="com.cdfive.mp3.po.Song">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="songName" jdbcType="VARCHAR" property="songName" />
+    <result column="fullName" jdbcType="VARCHAR" property="fullName" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="digit" jdbcType="INTEGER" property="digit" />
+    <result column="groups" jdbcType="VARCHAR" property="groups" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="playCount" jdbcType="INTEGER" property="playCount" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="createUserId" jdbcType="VARCHAR" property="createUserId" />
+    <result column="updateUserId" jdbcType="VARCHAR" property="updateUserId" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, songName, fullName, author, description, path, digit, groups, reason, playCount, 
+    sort, createUserId, updateUserId, createTime, updateTime, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from song
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from song
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cdfive.mp3.po.Song">
+    insert into song (id, songName, fullName, 
+      author, description, path, 
+      digit, groups, reason, 
+      playCount, sort, createUserId, 
+      updateUserId, createTime, updateTime, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{songName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{digit,jdbcType=INTEGER}, #{groups,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{playCount,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdfive.mp3.po.Song">
+    insert into song
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="songName != null">
+        songName,
+      </if>
+      <if test="fullName != null">
+        fullName,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="digit != null">
+        digit,
+      </if>
+      <if test="groups != null">
+        groups,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="playCount != null">
+        playCount,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="createUserId != null">
+        createUserId,
+      </if>
+      <if test="updateUserId != null">
+        updateUserId,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="songName != null">
+        #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="digit != null">
+        #{digit,jdbcType=INTEGER},
+      </if>
+      <if test="groups != null">
+        #{groups,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="playCount != null">
+        #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdfive.mp3.po.Song">
+    update song
+    <set>
+      <if test="songName != null">
+        songName = #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        fullName = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="digit != null">
+        digit = #{digit,jdbcType=INTEGER},
+      </if>
+      <if test="groups != null">
+        groups = #{groups,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="playCount != null">
+        playCount = #{playCount,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null">
+        createUserId = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        updateUserId = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdfive.mp3.po.Song">
+    update song
+    set songName = #{songName,jdbcType=VARCHAR},
+      fullName = #{fullName,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      digit = #{digit,jdbcType=INTEGER},
+      groups = #{groups,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      playCount = #{playCount,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      createUserId = #{createUserId,jdbcType=VARCHAR},
+      updateUserId = #{updateUserId,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.UploadMapper">
+  <resultMap id="BaseResultMap" type="com.cdfive.mp3.po.Upload">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="userId" jdbcType="VARCHAR" property="userId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="oriName" jdbcType="VARCHAR" property="oriName" />
+    <result column="saveName" jdbcType="VARCHAR" property="saveName" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userId, type, oriName, saveName, path, createTime, updateTime, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from upload
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from upload
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cdfive.mp3.po.Upload">
+    insert into upload (id, userId, type, 
+      oriName, saveName, path, 
+      createTime, updateTime, status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{oriName,jdbcType=VARCHAR}, #{saveName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdfive.mp3.po.Upload">
+    insert into upload
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="oriName != null">
+        oriName,
+      </if>
+      <if test="saveName != null">
+        saveName,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="oriName != null">
+        #{oriName,jdbcType=VARCHAR},
+      </if>
+      <if test="saveName != null">
+        #{saveName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdfive.mp3.po.Upload">
+    update upload
+    <set>
+      <if test="userId != null">
+        userId = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="oriName != null">
+        oriName = #{oriName,jdbcType=VARCHAR},
+      </if>
+      <if test="saveName != null">
+        saveName = #{saveName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdfive.mp3.po.Upload">
+    update upload
+    set userId = #{userId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      oriName = #{oriName,jdbcType=VARCHAR},
+      saveName = #{saveName,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.ApiLogMapperCustom">
+	<select id="findApiLogTopList" resultType="com.cdfive.mp3.vo.log.ApiLogListVo">
+		SELECT id,ip,uri,result,startTime,endTime,timeCost,createTime
+		FROM api_log
+		WHERE status=1
+		ORDER BY createTime DESC
+		LIMIT 0,#{num,jdbcType=INTEGER}
+	</select>
+</mapper>

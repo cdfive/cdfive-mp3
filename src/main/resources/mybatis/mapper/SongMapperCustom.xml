@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.SongMapperCustom">
+	<select id="findCount" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM song
+		WHERE status=1
+	</select>
+	
+	<select id="findSongJqGridListCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM (
+			SELECT id,songName,fullName,author,description,path,digit,groups,reason,playCount,sort,createTime,updateTime
+			FROM song
+			WHERE status=1) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findSongJqGridList" resultType="com.cdfive.mp3.vo.song.SongJqGridListVo">
+		SELECT * FROM (
+			SELECT id,songName,fullName,author,description,path,digit,groups,reason,playCount,sort,createTime,updateTime
+			FROM song
+			WHERE status=1) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}
+			</if>
+		</where>
+		<choose>
+			<when test="sqlOrder!=null and sqlOrder!=''">
+				ORDER BY ${sqlOrder}
+			</when>
+			<otherwise>
+				ORDER BY createTime DESC
+			</otherwise>
+		</choose>
+		limit #{pageStart},#{pageSize}
+	</select>
+	
+	<select id="findCountByFullName" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM song 
+		WHERE fullName=#{fullName}
+		AND status=1
+	</select>
+	
+	<select id="findMaxSort" resultType="java.lang.Integer">
+		SELECT IFNULL(MAX(sort),0)
+		FROM song
+		WHERE status=1
+	</select>
+	
+	<select id="findSongListByDigit" resultType="com.cdfive.mp3.vo.song.SongListVo">
+		SELECT id,songName,fullName,author,description,path,digit,groups,reason
+		FROM song
+		WHERE digit=#{digit}
+		AND status=1
+		ORDER BY sort
+	</select>
+	
+	<select id="findSongListByGroups" resultType="com.cdfive.mp3.vo.song.SongListVo">
+		SELECT id,songName,fullName,author,description,path,digit,groups,reason
+		FROM song
+		WHERE groups=#{groups}
+		AND status=1
+		ORDER BY sort
+	</select>
+	
+	<select id="findSongTopList" resultType="com.cdfive.mp3.vo.song.SongJqGridListVo">
+	SELECT id,songName,fullName,author,description,path,digit,groups,reason,playCount,sort,createTime,updateTime
+		FROM song
+		WHERE status=1
+		ORDER BY createTime DESC
+		LIMIT 0,#{num,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findSongRandomList" resultType="com.cdfive.mp3.vo.song.SongListVo">
+	SELECT id,songName,fullName,author,description,path,digit,groups,reason
+		FROM song
+		WHERE status=1
+		ORDER BY RAND()
+		LIMIT 0,#{num,jdbcType=INTEGER}
+	</select>
+</mapper>

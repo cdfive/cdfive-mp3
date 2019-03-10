@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.MenuMapperCustom">
+	
+	<select id="findByPIdAndTypeAndName" resultType="com.cdfive.mp3.po.Menu">
+		SELECT id, pId, type, code, url, name, description, icon, sort, createUserId, updateUserId, 
+    	createTime, updateTime, status
+    	FROM menu
+    	WHERE 
+    	<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND type=#{type,jdbcType=INTEGER}
+    	AND name=#{name,jdbcType=VARCHAR}
+    	AND status=1
+	</select>
+
+	<select id="findMaxSortByPIdAndType" resultType="java.lang.Integer">
+		SELECT MAX(sort)
+		FROM menu
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND type=#{type,jdbcType=INTEGER}
+    	AND status=1
+	</select>
+	
+	<select id="findCountByPIdAndType" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM menu
+		WHERE pId=#{pId,jdbcType=VARCHAR}
+		AND type=#{type,jdbcType=VARCHAR}
+		AND status=1
+	</select>
+
+	<select id="findMenuTreeList" resultType="com.cdfive.core.vo.ztree.ZtreeNodeVo">
+		SELECT id,pId,name,url,sort
+		FROM menu
+		WHERE type=1 AND status=1
+		ORDER BY sort
+	</select>
+	
+	<select id="findMenuTreeNodeList" resultType="com.cdfive.mp3.vo.menu.MenuTreeNodeVo">
+		SELECT id,name,url
+		FROM menu
+		WHERE
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if> 
+		AND type=#{type,jdbcType=INTEGER}
+		AND status=1
+		ORDER BY sort 
+	</select>
+	
+	<select id="findUserMenuTreeNodeList" resultType="com.cdfive.mp3.vo.menu.MenuTreeNodeVo">
+		SELECT DISTINCT m.id,m.name,m.url
+		FROM user u
+		JOIN user_role ur ON u.id=ur.userId
+		JOIN role r ON ur.roleId=r.id
+		JOIN role_menu rm ON r.id=rm.roleId
+		JOIN menu m ON rm.menuId=m.id
+		WHERE 
+		u.id=#{userId,jdbcType=VARCHAR}
+		<if test="pId==null">
+    		AND m.pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		AND m.pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND m.type=#{type,jdbcType=INTEGER}
+    	AND u.status=1 AND ur.status=1 AND r.status=1 AND rm.status=1 AND m.status=1
+    	ORDER BY m.sort
+	</select>
+	
+	<select id="findButtonJqGridListCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM(
+		SELECT id,name,url
+		FROM menu
+		WHERE type=2
+		AND pId=#{pId,jdbcType=VARCHAR}
+		AND status=1
+		) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}			
+			</if>
+		</where>
+	</select>
+	<select id="findButtonJqGridList" resultType="com.cdfive.mp3.vo.menu.ButtonListVo">
+		SELECT * FROM(
+		SELECT id,name,url
+		FROM menu
+		WHERE type=2
+		AND pId=#{pId,jdbcType=VARCHAR}
+		AND status=1
+		) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}			
+			</if>
+		</where>
+		<choose>
+			<when test="sqlOrder!=null and sqlOrder!=''">
+				ORDER BY ${sqlOrder}
+			</when>
+		</choose>
+     	LIMIT #{pageStart},#{pageSize}
+	</select>
+	
+	<update id="addAfterSort">
+		UPDATE menu
+		SET sort=sort+1
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND type=#{type,jdbcType=VARCHAR}
+    	AND sort>#{sort,jdbcType=INTEGER}
+		AND status=1
+	</update>
+	
+	<update id="minusAfterSort">
+		UPDATE menu
+		SET sort=sort-1
+		WHERE 
+		<if test="pId==null">
+    		pId IS NULL
+    	</if>
+    	<if test="pId!=null">
+    		pId=#{pId,jdbcType=VARCHAR}
+    	</if>
+    	AND type=#{type,jdbcType=VARCHAR}
+    	AND sort>#{sort,jdbcType=INTEGER}
+		AND status=1
+	</update>
+	
+	<delete id="truncate">
+		TRUNCATE TABLE menu
+	</delete>
+  
+</mapper>

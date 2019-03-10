@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.ApiLogMapper">
+  <resultMap id="BaseResultMap" type="com.cdfive.mp3.po.ApiLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sessionId" jdbcType="VARCHAR" property="sessionId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="controllerType" jdbcType="VARCHAR" property="controllerType" />
+    <result column="methodName" jdbcType="VARCHAR" property="methodName" />
+    <result column="methodRemark" jdbcType="VARCHAR" property="methodRemark" />
+    <result column="requestBody" jdbcType="VARCHAR" property="requestBody" />
+    <result column="requestType" jdbcType="VARCHAR" property="requestType" />
+    <result column="requestValue" jdbcType="VARCHAR" property="requestValue" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="responseType" jdbcType="VARCHAR" property="responseType" />
+    <result column="responseValue" jdbcType="VARCHAR" property="responseValue" />
+    <result column="exceptionType" jdbcType="VARCHAR" property="exceptionType" />
+    <result column="exceptionMsg" jdbcType="VARCHAR" property="exceptionMsg" />
+    <result column="exceptionStackTrace" jdbcType="VARCHAR" property="exceptionStackTrace" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="timeCost" jdbcType="INTEGER" property="timeCost" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sessionId, ip, uri, url, controllerType, methodName, methodRemark, requestBody, 
+    requestType, requestValue, code, msg, responseType, responseValue, exceptionType, 
+    exceptionMsg, exceptionStackTrace, startTime, endTime, timeCost, result, createTime, 
+    updateTime, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from api_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from api_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cdfive.mp3.po.ApiLog">
+    insert into api_log (id, sessionId, ip, 
+      uri, url, controllerType, 
+      methodName, methodRemark, requestBody, 
+      requestType, requestValue, code, 
+      msg, responseType, responseValue, 
+      exceptionType, exceptionMsg, exceptionStackTrace, 
+      startTime, endTime, timeCost, 
+      result, createTime, updateTime, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{uri,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{controllerType,jdbcType=VARCHAR}, 
+      #{methodName,jdbcType=VARCHAR}, #{methodRemark,jdbcType=VARCHAR}, #{requestBody,jdbcType=VARCHAR}, 
+      #{requestType,jdbcType=VARCHAR}, #{requestValue,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{responseValue,jdbcType=VARCHAR}, 
+      #{exceptionType,jdbcType=VARCHAR}, #{exceptionMsg,jdbcType=VARCHAR}, #{exceptionStackTrace,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{timeCost,jdbcType=INTEGER}, 
+      #{result,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdfive.mp3.po.ApiLog">
+    insert into api_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sessionId != null">
+        sessionId,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="uri != null">
+        uri,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="controllerType != null">
+        controllerType,
+      </if>
+      <if test="methodName != null">
+        methodName,
+      </if>
+      <if test="methodRemark != null">
+        methodRemark,
+      </if>
+      <if test="requestBody != null">
+        requestBody,
+      </if>
+      <if test="requestType != null">
+        requestType,
+      </if>
+      <if test="requestValue != null">
+        requestValue,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="msg != null">
+        msg,
+      </if>
+      <if test="responseType != null">
+        responseType,
+      </if>
+      <if test="responseValue != null">
+        responseValue,
+      </if>
+      <if test="exceptionType != null">
+        exceptionType,
+      </if>
+      <if test="exceptionMsg != null">
+        exceptionMsg,
+      </if>
+      <if test="exceptionStackTrace != null">
+        exceptionStackTrace,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+      <if test="endTime != null">
+        endTime,
+      </if>
+      <if test="timeCost != null">
+        timeCost,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerType != null">
+        #{controllerType,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodRemark != null">
+        #{methodRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="requestBody != null">
+        #{requestBody,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestValue != null">
+        #{requestValue,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="responseType != null">
+        #{responseType,jdbcType=VARCHAR},
+      </if>
+      <if test="responseValue != null">
+        #{responseValue,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionType != null">
+        #{exceptionType,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionMsg != null">
+        #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionStackTrace != null">
+        #{exceptionStackTrace,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCost != null">
+        #{timeCost,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdfive.mp3.po.ApiLog">
+    update api_log
+    <set>
+      <if test="sessionId != null">
+        sessionId = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerType != null">
+        controllerType = #{controllerType,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        methodName = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodRemark != null">
+        methodRemark = #{methodRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="requestBody != null">
+        requestBody = #{requestBody,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null">
+        requestType = #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestValue != null">
+        requestValue = #{requestValue,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="responseType != null">
+        responseType = #{responseType,jdbcType=VARCHAR},
+      </if>
+      <if test="responseValue != null">
+        responseValue = #{responseValue,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionType != null">
+        exceptionType = #{exceptionType,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionMsg != null">
+        exceptionMsg = #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionStackTrace != null">
+        exceptionStackTrace = #{exceptionStackTrace,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        startTime = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeCost != null">
+        timeCost = #{timeCost,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdfive.mp3.po.ApiLog">
+    update api_log
+    set sessionId = #{sessionId,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      controllerType = #{controllerType,jdbcType=VARCHAR},
+      methodName = #{methodName,jdbcType=VARCHAR},
+      methodRemark = #{methodRemark,jdbcType=VARCHAR},
+      requestBody = #{requestBody,jdbcType=VARCHAR},
+      requestType = #{requestType,jdbcType=VARCHAR},
+      requestValue = #{requestValue,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      responseType = #{responseType,jdbcType=VARCHAR},
+      responseValue = #{responseValue,jdbcType=VARCHAR},
+      exceptionType = #{exceptionType,jdbcType=VARCHAR},
+      exceptionMsg = #{exceptionMsg,jdbcType=VARCHAR},
+      exceptionStackTrace = #{exceptionStackTrace,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=TIMESTAMP},
+      endTime = #{endTime,jdbcType=TIMESTAMP},
+      timeCost = #{timeCost,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

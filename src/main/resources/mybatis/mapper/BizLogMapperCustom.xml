@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfive.mp3.mapper.BizLogMapperCustom">
+	<select id="findBizLogJqGridListCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM(
+		SELECT id, userId, userName, realName, operKey, operDescription, ip, createTime
+		FROM biz_log
+		WHERE status=1
+		) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}			
+			</if>
+		</where>
+	</select>
+	
+	<select id="findBizLogJqGridList" resultType="com.cdfive.mp3.vo.log.BizLogListVo">
+		SELECT * FROM(
+		SELECT id, userId, userName, realName, operKey, operDescription, ip, createTime
+		FROM biz_log
+		WHERE status=1
+		) A
+		<where>
+			<if test="sqlWhere!=null and sqlWhere!=''">
+				${sqlWhere}			
+			</if>
+		</where>
+		<choose>
+			<when test="sqlOrder!=null and sqlOrder!=''">
+				ORDER BY ${sqlOrder}
+			</when>
+			<otherwise>
+				ORDER BY createTime DESC
+			</otherwise>
+		</choose>
+     	LIMIT #{pageStart},#{pageSize}
+	</select>
+</mapper>
