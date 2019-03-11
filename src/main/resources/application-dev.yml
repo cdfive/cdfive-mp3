@@ -6,3 +6,11 @@ spring:
     url: jdbc:mysql://localhost:3306/cdfive_mp3?autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true
     username: root
     password: 123456
+
+resources:
+  static:
+    pathPatterns: /static/**
+    resourcelocations: classpath:/static/
+  mp3:
+    pathPatterns: /2017/mp3/**
+    resourcelocations: file:E:/mp3/
