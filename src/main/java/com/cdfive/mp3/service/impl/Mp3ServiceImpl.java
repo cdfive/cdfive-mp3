@@ -203,9 +203,6 @@ public class Mp3ServiceImpl extends Mp3BaseService implements Mp3Service {
 	public Integer play(String id) {
 		addBizLog("播放mp3");
 		Song song = checkSong(id);
-		if (song == null) {
-			
-		}
 		Integer playCount = song.getPlayCount();
 		playCount = playCount == null ? 1 : (playCount + 1);
 		song.setPlayCount(playCount);
